@@ -1,4 +1,4 @@
 # scripts
 Python, PyMel scripts - primarily for Maya
 
-A repository of useful things.
+I've migrated these to vfxTools.
