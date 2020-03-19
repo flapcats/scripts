@@ -7,9 +7,10 @@
 # This script implements a "pet detector" that alerts the user if a cat, dog or giraffe is
 # inside the yard or outside. It accesses a USB webcam, passes them through a TensorFlow object detection model,
 # determines if a cat or dog or giraffe has been detected in the image, checks the location
-# of the cat or dog or giraffe in the frame, barks at it, stores an image of the creature in a folder with today's date and emails the user
+# of the cat or dog or giraffe in the frame, barks at it, stores an image of the creature
+# in a folder with today's date and emails the user.
 #
-# The framework is based off the Object_detection_picamera.py script located here:
+# The framework is based on the Object_detection_picamera.py script located here:
 # https://github.com/EdjeElectronics/TensorFlow-Object-Detection-on-the-Raspberry-Pi/blob/master/Object_detection_picamera.py
 #
 # Sending a text requires setting up a Twilio account (free trials are available).
@@ -19,7 +20,7 @@
 # In this version 'Inside' is inside yard and 'Outside' is everywhere else, ie on the fence
 
 
-# Import packages
+# Import tf packages
 import os
 import cv2
 import numpy as np
@@ -28,11 +29,20 @@ from picamera import PiCamera
 import tensorflow as tf
 import argparse
 import sys
+
+# woof
 import pygame
+
+# timestamp
 from datetime import date
 from datetime import time
-#import smtplib
 
+# email
+import smtplib
+from email.mime.multipart import MIMEMultipart 
+from email.mime.text import MIMEText 
+from email.mime.base import MIMEBase 
+from email import encoders 
 
 # Set up Twilio
 #from twilio.rest import Client
@@ -198,16 +208,9 @@ def saveFrame(paws_counter):
 
 def mailImage(imageName, paws_counter):
     print('Emailing: catFound{}.png'.format(paws_counter))
-
-    # libraries to be imported 
-    import smtplib 
-    from email.mime.multipart import MIMEMultipart 
-    from email.mime.text import MIMEText 
-    from email.mime.base import MIMEBase 
-    from email import encoders 
        
-    fromaddr = "xxx"
-    toaddr = "xxx"
+    fromaddr = "lorisnudibranch@gmail.com"
+    toaddr = "flapcats@gmail.com"
        
     # instance of MIMEMultipart 
     msg = MIMEMultipart() 
@@ -252,7 +255,7 @@ def mailImage(imageName, paws_counter):
     s.starttls() 
       
     # Authentication 
-    s.login(fromaddr, "xxx") 
+    s.login(fromaddr, "ccctvDinosaurs1") 
       
     # Converts the Multipart msg into a string 
     text = msg.as_string() 
